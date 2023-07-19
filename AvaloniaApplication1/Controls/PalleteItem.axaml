@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaApplication1.ViewModels"
+             xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:DataType="vm:PalleteItemViewModel"
+			 x:Class="AvaloniaApplication1.Controls.PalleteItem">
+	<UserControl.Styles>
+		<Style Selector="Rectangle.selecteble:pointerover">
+			<!--<Setter Property="Opacity" Value="0.7"/>-->
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="Stroke" Value="White"/>
+			<Setter Property="StrokeThickness" Value="1.5"/>
+		</Style>
+	</UserControl.Styles>	
+	<Grid RowDefinitions="*, 70">
+
+		<Rectangle
+			Classes="selecteble"
+			Grid.RowSpan="2"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"
+			PointerPressed="Clicked"
+			Fill="{Binding PColor, Converter={StaticResource ToBrushConverter}}"
+			ToolTip.Tip="LeftClick to get a new color&#x0a;RightClick to copy">
+
+			<Rectangle.ContextMenu>
+				<ContextMenu>
+					<MenuItem
+						Header="Copy as HEX"
+						Command="{Binding Copy}"
+						CommandParameter="hex"/>
+					<MenuItem
+						Header="Copy as RGB"
+						Command="{Binding Copy}"
+						CommandParameter="rgb"/>
+
+					<Separator/>
+					<MenuItem Header="Cancel"/>
+				</ContextMenu>
+
+			</Rectangle.ContextMenu>
+		</Rectangle>
+		
+		<Rectangle
+			Grid.Row="1"
+			Fill="Black"
+			Opacity="0.6"/>
+
+		<Grid
+			Grid.Row="1"
+			ColumnDefinitions="Auto, *, Auto, Auto"
+			Margin="10">
+
+			<Label
+				VerticalAlignment="Center"
+				FontWeight="Bold"
+				Content="{Binding HexColor}"/>
+
+			<ToggleSwitch
+				Grid.Column="2"
+				Opacity="0.8"
+				Padding="0"
+				Theme="{DynamicResource ButtonToggleSwitch}"
+				IsChecked="{Binding IsLocked}"
+				OffContent="{icons:MaterialIconExt Kind=PasswordOff, Size=30}"
+				OnContent="{icons:MaterialIconExt Kind=Password, Size=30}">
+
+				<ToggleSwitch.Styles>
+					<Style Selector="ToggleSwitch.IsChecked">
+						<Setter Property="Opacity" Value="0"/>
+					</Style>
+				</ToggleSwitch.Styles>
+			</ToggleSwitch>
+			
+			<ColorPicker
+				Grid.Column="3"
+				HorizontalAlignment="Right"
+				Width="33"
+				ColorSpectrumShape="Ring"
+				Color="{Binding PColor}"/>
+		</Grid>
+	</Grid>
+</UserControl>

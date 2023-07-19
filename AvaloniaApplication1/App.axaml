@@ -1,0 +1,19 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AvaloniaApplication1.App"
+			 xmlns:converters="using:Avalonia.Controls.Converters"
+			 xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 RequestedThemeVariant="Dark">
+	
+	<Application.Resources>
+		<converters:ToBrushConverter x:Key="ToBrushConverter" />
+	</Application.Resources>
+    <Application.Styles>
+
+		<FluentTheme/>
+        <StyleInclude Source="avares://Semi.Avalonia/Themes/Index.axaml"/>
+        <StyleInclude Source="avares://Semi.Avalonia.ColorPicker/Index.axaml"/>
+		<materialIcons:MaterialIconStyles />
+	</Application.Styles>
+</Application>

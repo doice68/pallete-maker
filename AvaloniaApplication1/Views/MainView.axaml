@@ -1,0 +1,114 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaApplication1.ViewModels"
+             xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+			 xmlns:controls="clr-namespace:AvaloniaApplication1.Controls"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaApplication1.Views.MainView"
+			 x:DataType="vm:MainViewModel">
+    
+	<Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+	<Grid 
+		Margin="30, 0, 30, 30"
+		ColumnDefinitions="50, 20, *, 20, 50"
+		RowDefinitions="70, *">
+ 
+		<Menu 
+			Grid.ColumnSpan="99"
+			HorizontalAlignment="Center">
+
+			<MenuItem
+				Background="Transparent">
+
+				<MenuItem.Header>
+					<DockPanel>
+						<Label Content="Export  "/>
+						<icons:MaterialIcon Kind="File"/>
+					</DockPanel>
+				</MenuItem.Header>
+
+				<MenuItem
+					Header="As png"
+					Command="{Binding Export}"
+					CommandParameter="png"/>
+				<MenuItem
+					Header="As aseprite pallete"
+					Command="{Binding Export}"
+					CommandParameter="aseprite"/>
+			</MenuItem>
+			
+			<MenuItem
+				Background="Transparent"
+				Command="{Binding RandomiseAll}">
+
+				<MenuItem.Header>
+					<DockPanel>
+						<Label Content="Randomise  "/>
+						<icons:MaterialIcon Kind="Refresh"/>
+					</DockPanel>
+				</MenuItem.Header>
+			</MenuItem>
+			
+			<MenuItem
+				Background="Transparent">
+
+				<MenuItem.Header>
+					<DockPanel>
+						<Label Content="About  "/>
+						<icons:MaterialIcon Kind="Github"/>
+					</DockPanel>
+				</MenuItem.Header>
+			</MenuItem>
+		</Menu>
+		
+		<!--delete item-->
+		<Button
+			Foreground="White"
+			Grid.Row="1"
+			Height="50"
+			CornerRadius="30"
+			Content="{icons:MaterialIconExt Kind=Minus, Size=20}"
+			Command="{Binding RemoveItem}"/>
+		<!--add item-->
+		<Button
+			Foreground="White"
+			Grid.Column="4"
+			Grid.Row="1"
+			Height="50"
+			CornerRadius="30"
+			Content="{icons:MaterialIconExt Kind=Plus, Size=20}"
+			Command="{Binding AddItem}"/>
+
+		<!--pallete-->
+		<Border
+			Grid.Column="2"
+			Grid.ColumnSpan="1"
+			Grid.Row="1"
+			CornerRadius="10"
+			ClipToBounds="True">
+			
+			<ItemsControl
+			ItemsSource="{Binding PalleteItems}">
+
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<controls:PalleteItem/>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Rows="1"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+
+			</ItemsControl>
+		</Border>
+		
+	</Grid>
+</UserControl>
